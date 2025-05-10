@@ -63,7 +63,7 @@ Emily aims to offer a specialized wine recommendation service superior to generi
 -   **Process:** Emily identifies wines, uses RAG to add details (e.g., ABV for Viña Sol from catalog), then uses web search for a Vivino score for Viña Sol.
 -   **Output (Emy):** "Bonjour! For your casual evening, the Viña Sol Sauvignon Blanc is a charming choice under €10! It's dry and fruity with lovely citrus notes, perfect for relaxing. Users on Vivino give it a solid 3.5/5. Santé!"
 
-### Running the Web Scraper (`webscrape.py`) - Important Header Configuration
+## Running the Web Scraper (`webscrape.py`) - Important Header Configuration
 
 The `webscrape.py` script is designed to fetch wine data directly from Tesco Ireland's website. To make this script work, you **MUST** manually update it with fresh session headers from your own browser, as Tesco uses these for session management and security.
 
