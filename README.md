@@ -58,6 +58,65 @@ Emily aims to offer a specialized wine recommendation service superior to generi
 -   **Function Calling (`get_wine_reviews_from_web`):** Uses `duckduckgo-search` for targeted web queries on wine reviews/scores, returning snippets to the Assistant.
 -   **User Preferences:** Dictionaries define categories (price, color, etc.) for user input, which are then formatted into the prompt for the Assistant.
 
+### Running the Web Scraper (`webscrape.py`) - Important Header Configuration
+
+The `webscrape.py` script is designed to fetch wine data directly from Tesco Ireland's website. To make this script work, you **MUST** manually update it with fresh session headers from your own browser, as Tesco uses these for session management and security.
+
+**These values are session-specific, will expire, and need to be updated each time you intend to run the scraper for an extended period or after some inactivity.**
+
+**Steps to Obtain and Configure Headers:**
+
+1.  **Open Tesco Website:** Navigate to the Tesco Ireland wine search results page in your web browser (e.g., Google Chrome or Firefox):
+    `https://www.tesco.ie/groceries/en-IE/search?query=wine`
+
+2.  **Open Developer Tools:**
+    *   Press `F12` (or `Fn+F12` on some laptops).
+    *   Alternatively, right-click anywhere on the page and select "Inspect" or "Inspect Element."
+
+3.  **Go to the "Network" Tab:** In the Developer Tools panel, click on the "Network" tab.
+
+4.  **Filter for "Fetch/XHR":** Within the Network tab, find the filter options and select "Fetch/XHR" to see only data requests.
+
+5.  **Trigger the Data Request:**
+    *   Reload the Tesco wine page (`Ctrl+R` or `Cmd+R`).
+    *   Scroll down the page, or click to the next page of results (e.g., "Page 2"). This should trigger the relevant data request.
+
+6.  **Find the `resources` POST Request:**
+    *   Look through the list of Fetch/XHR requests. You are looking for a request whose **Name** is `resources` and whose **Method** is `POST`. It will likely be a request made to a URL similar to `https://www.tesco.ie/groceries/en-IE/resources`.
+    *   Click on this specific `resources` request line to open its details.
+
+7.  **Copy Request Headers:**
+    *   In the details panel for the `resources` request, go to the **"Headers"** tab.
+    *   Scroll down to the section labeled **"Request Headers"**.
+    *   You need to copy the *values* for the following headers:
+        *   `cookie`: This will be a very long string. Copy the entire value.
+        *   `x-csrf-token`: Copy its value.
+        *   *(Optional but recommended): Also note down values for `user-agent`, `accept`, `accept-language`, `origin`, `referer` if you want to be extremely precise, though the script includes common defaults for these.*
+
+8.  **Update `webscrape.py`:**
+    *   Open the `webscrape.py` file in a text editor.
+    *   Locate the `request_headers` dictionary near the top of the script.
+    *   **Carefully replace the placeholder values** for `'cookie'` and `'x-csrf-token'` with the values you just copied from your browser:
+
+        ```python
+        request_headers = {
+            # ... other headers ...
+            'cookie': 'YOUR_COPIED_COOKIE_STRING_GOES_HERE',
+            'x-csrf-token': 'YOUR_COPIED_X_CSRF_TOKEN_GOES_HERE',
+            # ... other headers ...
+        }
+        ```
+
+9.  **Save and Run:** Save the `webscrape.py` file. You can now try running the script.
+
+**Important Reminders:**
+
+*   **Expiration:** These `cookie` and `x-csrf-token` values are temporary. If the scraper stops working (e.g., you get 403 Forbidden errors), the first thing to do is repeat steps 1-8 to get fresh header values.
+*   **Responsibility:** Web scraping can be resource-intensive for websites. This script includes delays between page requests. Please use it responsibly and be mindful of Tesco's Terms of Service, which may prohibit automated scraping.
+*   **Fragility:** Website structures can change, which may break this scraper. It may require updates if Tesco modifies its site.
+
+By following these steps, you provide the scraper with the necessary session information to mimic a legitimate browser request, increasing the chances of a successful data fetch.
+
 
 **Example:**
 -   **Input:** Image of various white wines, preference for "Cheap, White, Casual Chilling, Fruity."
