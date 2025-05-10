@@ -1,6 +1,6 @@
 # Emily: AI Sommelier Assistant
 
-Emily is an intelligent sommelier assistant designed to provide personalized wine recommendations based on visual input (images of wine shelves) and user preferences. It leverages the OpenAI Assistants API, including Vision capabilities, Retrieval-Augmented Generation (RAG), and Function Calling. This project was developed for COMP47980: Generative AI and Language Models. Emily's persona is "Emy," a friendly, witty French sommelier.
+Emily is an intelligent sommelier assistant designed to provide personalized wine recommendations based on visual input (images of wine shelves) and user preferences. It leverages the OpenAI Assistants API, including Vision capabilities, Retrieval-Augmented Generation (RAG), and Function Calling. This project was developed for COMP47980: Generative AI and Language Models. Emily's persona is a friendly, witty French sommelier.
 
 ## Project Goal
 
