@@ -50,13 +50,18 @@ Emily aims to offer a specialized wine recommendation service superior to generi
 3.  **RAG File:** Upload `tescoRAG.json` to your Colab session (e.g., `/content/`) or Google Drive, and ensure the script's filepath is correct.
 4.  **Run Cells:** Execute notebook cells sequentially to install libraries, initialize the client, and run the assistant workflow. Update `img_linkX` for the image to be analyzed.
 
-## Key Components
+### Key Components
 
 -   **Vision Input:** `gpt-4o` provides an initial JSON list of wines from an image.
 -   **Assistant:** "Emy" persona, configured with `gpt-4o` (or `gpt-4o-mini`), File Search, and Function Calling tools. Instructions guide its multi-step reasoning.
 -   **RAG Data (`tescoRAG.json`):** Curated/scraped Tesco Ireland wine data, uploaded to a Vector Store and linked to the Assistant for localized enrichment.
 -   **Function Calling (`get_wine_reviews_from_web`):** Uses `duckduckgo-search` for targeted web queries on wine reviews/scores, returning snippets to the Assistant.
 -   **User Preferences:** Dictionaries define categories (price, color, etc.) for user input, which are then formatted into the prompt for the Assistant.
+
+**Example:**
+-   **Input:** Image of various white wines, preference for "Cheap, White, Casual Chilling, Fruity."
+-   **Process:** Emily identifies wines, uses RAG to add details (e.g., ABV for Viña Sol from catalog), then uses web search for a Vivino score for Viña Sol.
+-   **Output (Emy):** "Bonjour! For your casual evening, the Viña Sol Sauvignon Blanc is a charming choice under €10! It's dry and fruity with lovely citrus notes, perfect for relaxing. Users on Vivino give it a solid 3.5/5. Santé!"
 
 ### Running the Web Scraper (`webscrape.py`) - Important Header Configuration
 
@@ -117,11 +122,6 @@ The `webscrape.py` script is designed to fetch wine data directly from Tesco Ire
 
 By following these steps, you provide the scraper with the necessary session information to mimic a legitimate browser request, increasing the chances of a successful data fetch.
 
-
-**Example:**
--   **Input:** Image of various white wines, preference for "Cheap, White, Casual Chilling, Fruity."
--   **Process:** Emily identifies wines, uses RAG to add details (e.g., ABV for Viña Sol from catalog), then uses web search for a Vivino score for Viña Sol.
--   **Output (Emy):** "Bonjour! For your casual evening, the Viña Sol Sauvignon Blanc is a charming choice under €10! It's dry and fruity with lovely citrus notes, perfect for relaxing. Users on Vivino give it a solid 3.5/5. Santé!"
 
 ## Limitations
 
